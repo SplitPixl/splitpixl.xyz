@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>SplitPixl</title>
+    <meta name="viewport"
+        content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <link rel="icon" type="image/png" href="assets/icon/favicon.png" />
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap');
+
+        body {
+            display: flex;
+            flex-direction: column;
+            font-family: "DM Sans", sans-serif;
+            max-width: min(95vw, 800px);
+            margin: auto;
+            padding-top: 1em;
+        }
+
+        .loading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .loading.show {
+            opacity: 1;
+        }
+
+        .hero {
+            width: auto;
+            max-height: 40vh;
+            margin-bottom: 1em;
+            border: 2px solid #1e1e1e;
+            border-radius: 8px;
+            margin: auto;
+        }
+
+        a {
+            color: #48f;
+        }
+
+        img {
+            max-width: min(95vw, 800px);
+        }
+
+        pre {
+            background: rgba(128, 128, 128, 0.2);
+            padding: 4px;
+            border-radius: 4px;
+        }
+
+        body>code {
+            background: rgba(128, 128, 128, 0.2);
+            padding: 2px;
+            border-radius: 2px;
+        }
+
+        @media (prefers-color-scheme: dark) {
+
+            body,
+            .loading {
+                background-color: #1e1e1e;
+                color: #fff;
+            }
+
+            a {
+                color: #4cf;
+            }
+
+            .hero {
+                border: 2px solid #eee;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="loading show" id="loading">
+        <!-- <h1>Loading...</h1> -->
+    </div>
+    <img class="hero" id="hero" src="" alt="" />
+    <h1 class="title" id="title"></h1>
+    <div id="desc"></div>
+</body>
+
+<script>
+    const loadElement = document.getElementById("loading")
+    const heroElement = document.getElementById("hero")
+    const titleElement = document.getElementById("title")
+    const descElement = document.getElementById("desc")
+    const parseMD = (text) => {
+        return (text
+            .replace(/^### (.*$)/gim, '<h3>$1</h3>') // h3 tag
+            .replace(/^## (.*$)/gim, '<h2>$1</h2>') // h2 tag
+            .replace(/^# (.*$)/gim, '<h1>$1</h1>') // h1 tag
+            .replace(/\*\*(.*)\*\*/gim, '<b>$1</b>') // bold text
+            .replace(/\*(.*)\*/gim, '<i>$1</i>') // italic text
+            .replace(/~~(.*)~~/gim, '<s>$1</s>') // strikethrough text
+            .replace(/```([\w\d]+)?\r?\n([\s\S\r\n]+)\r?\n```/gim, '<pre><code class="$1">$2</code></pre>') // code block
+            .replace(/`(.*)`/gim, '<code>$1</code>') // inline code
+            .replace(/\!\[([\w\s\d]+)\]\(((?:\/|https?:\/\/)[\w\d./?=#]+)\)/gim, '<img src="$2" alt="$1"/>') // image
+            .replace(/\[([\w\s\d]+)\]\(((?:\/|https?:\/\/)[\w\d./?=#]+)\)/gim, '<a href="$2">$1</a>') // link
+            .replace(/(\r?\n){2,}?/gim, '<br><br>') // new line
+            .replace(/(<\/h[1-6]>)<br><br>/gim, '$1') // no new line after heading
+            .trim()
+        )
+    }
+    const getProject = () => {
+        fetch("https://cors-anywhere.herokuapp.com/https://api.splitpixl.xyz/api/projects/" + location.search.substring(1)).then(r => r.json()).then(proj => {
+            document.title = document.title + " | " + proj.title
+
+            loadElement.classList.remove("show")
+            heroElement.src = proj.image
+            titleElement.innerHTML = proj.title
+            descElement.innerHTML = parseMD(proj.description)
+        }).catch(e => {
+            console.log(e)
+            loadElement.innerHTML = "<h1>Failed to load project.</h1>"
+        })
+    }
+
+    document.addEventListener("DOMContentLoaded", getProject)
+</script>
+
+</html>

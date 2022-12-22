@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>SplitPixl</title>
+
+    <base href="/" />
+
+    <meta name="viewport"
+        content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+
+    <link rel="icon" type="image/png" href="assets/icon/favicon.png" />
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<template id="project-template">
+    <a class="project-card" href="#">
+        <div class="project-hero"></div>
+        <div class="project-detail">
+            <h3 class="project-name">Title</h3>
+            <p class="project-desc">Description</p>
+        </div>
+    </a>
+</template>
+
+<body>
+    <div class="waves">
+        <canvas class="waves-canvas" id="waves-canvas">
+            <div class="waves-fallback"></div>
+        </canvas>
+        <div class="waves-content">
+            <div class="profile-card">
+                <div class="avatar"></div>
+                <h1 class="name">
+                    SplitPixl
+                </h1>
+                <div class="tagline remove" id="tagline">&nbsp;</div>
+                <div class="button-container">
+                    <button class="button" id="button-projects">Projects</button>
+                    <button class="button" id="button-contact">Contact</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section full-height" id="projects">
+        <h2>Projects</h2>
+        <p class="subhead">
+            An archive of some of my creations.
+        </p>
+        <div class="projects-container" id="projects-container">
+            <div class="error">
+                Loading...
+            </div>
+        </div>
+    </div>
+    <div class="full-height">
+        <div class="section" id="contact">
+            <h2>Contact</h2>
+            <p class="subhead">
+                Here's how you can reach me.
+            </p>
+            <div class="table">
+                <div class="col shrink first">
+                    <div class="ele">
+                        Email:
+                    </div>
+                    <div class="ele">
+                        Discord:
+                    </div>
+                    <div class="ele">
+                        Telegram:
+                    </div>
+                </div>
+                <div class="col second">
+                    <div class="ele">
+                        <a href="mailto:splitpixl@splitpixl.xyz">splitpixl@splitpixl.xyz</a>
+                    </div>
+                    <div class="ele">
+                        <a href="https://discord.gg/qxX3x2k9qd">SplitPixl#9184</a>
+                    </div>
+                    <div class="ele">
+                        <a href="https://t.me/splitpixl/">SplitPixl</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <h2>Social</h2>
+            <p class="subhead">
+                Some other places you can find me, though I may not be as active.
+            </p>
+            <div class="table">
+                <div class="col shrink first">
+                    <div class="ele">
+                        Github:
+                    </div>
+                    <div class="ele">
+                        Steam:
+                    </div>
+                    <div class="ele">
+                        YouTube:
+                    </div>
+                    <div class="ele">
+                        Twitch:
+                    </div>
+                    <div class="ele">
+                        VRChat:
+                    </div>
+                </div>
+                <div class="col second">
+                    <div class="ele">
+                        <a href="https://github.com/splitpixl">SplitPixl</a>
+                    </div>
+                    <div class="ele">
+                        <a href="https://steamcommunity.com/id/SplitPixl">SplitPixl</a>
+                    </div>
+                    <div class="ele">
+                        <a href="https://www.youtube.com/channel/UC1nLAYoecyfGoWKwR0hU7NA">SplitPixl</a>
+                    </div>
+                    <div class="ele">
+                        <a href="https://twitch.tv/SplitPixl">SplitPixl</a>
+                    </div>
+                    <div class="ele">
+                        <a href="https://vrchat.com/home/user/usr_9ac1a2c4-b324-4e61-90ff-f48d5a12fe29">SplitPixl</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="/scripts/waves.js"></script>
+<script src="/scripts/tagline.js"></script>
+<script src="/scripts/fetch.js"></script>
+<script>
+    const projectButton = document.getElementById("button-projects")
+    const projectSection = document.getElementById("projects")
+    const contactButton = document.getElementById("button-contact")
+    const contactSection = document.getElementById("contact")
+
+    projectButton.addEventListener("click", () => {
+        projectSection.scrollIntoView({ behavior: "smooth" })
+    })
+    contactButton.addEventListener("click", () => {
+        contactSection.scrollIntoView({ behavior: "smooth" })
+    })
+</script>
+
+</html>
