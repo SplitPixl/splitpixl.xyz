@@ -120,7 +120,7 @@
         )
     }
     const getProject = () => {
-        fetch("https://cors-anywhere.herokuapp.com/https://api.splitpixl.xyz/api/projects/" + location.search.substring(1)).then(r => r.json()).then(proj => {
+        fetch("https://api.splitpixl.xyz/api/projects/" + location.search.substring(1)).then(r => r.json()).then(proj => {
             document.title = document.title + " | " + proj.title
 
             loadElement.classList.remove("show")
